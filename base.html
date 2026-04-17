@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Геометрические Теоремы{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" aria-label="Основная навигация">
+        <div class="nav-content">
+            <a href="{{ url_for('index') }}" class="nav-logo">
+                <span class="brand-mark" aria-hidden="true">⊙</span>
+                <span class="logo-text"><strong>Geometric Legacy</strong><small>Фалес · Менелай · Чева</small></span>
+            </a>
+
+            <div class="nav-center-wrapper">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="{{ url_for('index') }}" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">Главная</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link {% if 'theorem' in (request.endpoint or '') %}active{% endif %}"
+                           aria-haspopup="true" aria-expanded="false">Теоремы</a>
+                        <ul class="dropdown-menu" role="menu">
+                            {% for slug, name in theorem_list %}
+                            <li><a href="{{ url_for('theorem_page', theorem_type=slug) }}">{{ name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('tasks_list') }}" class="nav-link {% if 'task' in (request.endpoint or '') %}active{% endif %}">Задачи</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer (hide on task detail pages) -->
+    {% if not hide_footer %}
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-text">
+                            <strong>Geometric Legacy</strong>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Образовательная платформа, посвящённая трём великим теоремам классической геометрии.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h5>Теоремы</h5>
+                        <ul>
+                            {% for slug, name in theorem_list %}
+                            <li><a href="{{ url_for('theorem_page', theorem_type=slug) }}">{{ name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h5>Практика</h5>
+                        <ul>
+                            <li><a href="{{ url_for('tasks_list') }}">Все задачи</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h5>Управление</h5>
+                        <ul>
+                            <li><a href="{{ url_for('add_task') }}">Добавить задачу</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="footer-credits">Создано с любовью к геометрии</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
