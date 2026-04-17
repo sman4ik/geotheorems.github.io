@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+
+{% block title %}Geometria{% endblock %}
+
+{% block content %}
+<section class="home-minimal-shell home-immersive-shell">
+    <div class="home-immersive-decor" aria-hidden="true">
+        <span class="home-orb orb-one"></span>
+        <span class="home-orb orb-two"></span>
+        <span class="home-orb orb-three"></span>
+        <span class="home-grid-arc arc-one"></span>
+        <span class="home-grid-arc arc-two"></span>
+
+        <div class="home-stone-portrait portrait-left">
+            <svg viewBox="0 0 220 280" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="portraitGlowLeft" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#f5e3b2" />
+                        <stop offset="100%" stop-color="#84643f" />
+                    </linearGradient>
+                </defs>
+                <circle cx="110" cy="82" r="44" fill="none" stroke="url(#portraitGlowLeft)" stroke-width="4" opacity="0.9" />
+                <path d="M72 92c0-35 20-60 38-60 17 0 38 25 38 60 0 22-7 42-20 55-11 11-25 17-36 17-11 0-24-6-35-17-13-13-20-33-20-55Z" fill="rgba(234,223,200,0.08)" stroke="rgba(234,223,200,0.88)" stroke-width="4" />
+                <path d="M56 240c10-35 31-54 54-60 23-6 47-2 68 8 19 10 34 27 44 52" fill="none" stroke="rgba(234,223,200,0.88)" stroke-width="4" stroke-linecap="round" />
+                <path d="M82 78c7-20 21-33 39-37 21-5 43 2 58 21" fill="none" stroke="url(#portraitGlowLeft)" stroke-width="4" stroke-linecap="round" opacity="0.8" />
+            </svg>
+            <span>Фалес</span>
+        </div>
+
+        <div class="home-stone-portrait portrait-right">
+            <svg viewBox="0 0 220 280" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="portraitGlowRight" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#f5e3b2" />
+                        <stop offset="100%" stop-color="#84643f" />
+                    </linearGradient>
+                </defs>
+                <circle cx="110" cy="82" r="44" fill="none" stroke="url(#portraitGlowRight)" stroke-width="4" opacity="0.9" />
+                <path d="M72 92c0-35 20-60 38-60 17 0 38 25 38 60 0 22-7 42-20 55-11 11-25 17-36 17-11 0-24-6-35-17-13-13-20-33-20-55Z" fill="rgba(234,223,200,0.08)" stroke="rgba(234,223,200,0.88)" stroke-width="4" />
+                <path d="M56 240c10-35 31-54 54-60 23-6 47-2 68 8 19 10 34 27 44 52" fill="none" stroke="rgba(234,223,200,0.88)" stroke-width="4" stroke-linecap="round" />
+                <path d="M78 74c10-18 26-31 46-35 18-4 37 1 53 14" fill="none" stroke="url(#portraitGlowRight)" stroke-width="4" stroke-linecap="round" opacity="0.8" />
+            </svg>
+            <span>Менелай</span>
+        </div>
+
+        <div class="home-stone-portrait portrait-bottom">
+            <svg viewBox="0 0 220 280" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="portraitGlowBottom" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#f5e3b2" />
+                        <stop offset="100%" stop-color="#84643f" />
+                    </linearGradient>
+                </defs>
+                <circle cx="110" cy="82" r="44" fill="none" stroke="url(#portraitGlowBottom)" stroke-width="4" opacity="0.9" />
+                <path d="M72 92c0-35 20-60 38-60 17 0 38 25 38 60 0 22-7 42-20 55-11 11-25 17-36 17-11 0-24-6-35-17-13-13-20-33-20-55Z" fill="rgba(234,223,200,0.08)" stroke="rgba(234,223,200,0.88)" stroke-width="4" />
+                <path d="M56 240c10-35 31-54 54-60 23-6 47-2 68 8 19 10 34 27 44 52" fill="none" stroke="rgba(234,223,200,0.88)" stroke-width="4" stroke-linecap="round" />
+                <path d="M86 64c8-14 23-23 39-25 20-3 40 4 53 18" fill="none" stroke="url(#portraitGlowBottom)" stroke-width="4" stroke-linecap="round" opacity="0.8" />
+            </svg>
+            <span>Чева</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="home-hero-epic reveal">
+            <div class="home-hero-copy">
+                <p class="section-label">Classical geometry platform</p>
+                <h1>Geometria</h1>
+                <p class="home-hero-subtitle">Погрузитесь в классическую геометрию через призму теорем Фалеса, Менелая и Чевы</p>
+                <p class="home-hero-text">
+                    Платформа собрана как учебный проект для презентации и самостоятельной практики:
+                    сначала идея и схема, затем доказательство, а после этого — каталог задач с прогрессом.
+                </p>
+
+                <div class="home-minimal-actions">
+                    <a href="#home-theorems" class="btn btn-primary btn-lg">Открыть теоремы</a>
+                    <a href="{{ url_for('tasks_list') }}" class="btn btn-secondary btn-lg">Перейти к задачам</a>
+                </div>
+
+                <div class="home-hero-facts">
+                    <div>
+                        <span>Милет</span>
+                        <strong>пропорции</strong>
+                    </div>
+                    <div>
+                        <span>Александрия</span>
+                        <strong>секущие</strong>
+                    </div>
+                    <div>
+                        <span>Милан</span>
+                        <strong>cevian</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-scheme-grid">
+                <article class="card hero-scheme-card hero-scheme-card-menelaus">
+                    <div class="hero-scheme-figure" aria-hidden="true">
+                        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M54 166 L266 166 L160 36 Z" fill="rgba(194,161,77,0.05)" stroke="rgba(234,223,200,0.75)" stroke-width="3.5" />
+                            <path d="M26 98 L296 124" stroke="#c2a14d" stroke-width="3.5" stroke-linecap="round" />
+                            <circle cx="107" cy="105" r="4.5" fill="#eadfc8" />
+                            <circle cx="173" cy="112" r="4.5" fill="#eadfc8" />
+                            <circle cx="239" cy="118" r="4.5" fill="#eadfc8" />
+                            <text x="95" y="96" fill="#eadfc8" font-size="13">X</text>
+                            <text x="181" y="106" fill="#eadfc8" font-size="13">Y</text>
+                            <text x="247" y="128" fill="#eadfc8" font-size="13">Z</text>
+                        </svg>
+                    </div>
+                    <div class="hero-scheme-copy">
+                        <p class="section-label">Менелай</p>
+                        <h3>Критерий коллинеарности</h3>
+                        <p class="hero-scheme-equation">AZ / ZB · BX / XC · CY / YA = 1</p>
+                    </div>
+                </article>
+
+                <article class="card hero-scheme-card hero-scheme-card-ceva">
+                    <div class="hero-scheme-figure" aria-hidden="true">
+                        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M54 166 L266 166 L160 36 Z" fill="rgba(194,161,77,0.04)" stroke="rgba(234,223,200,0.75)" stroke-width="3.5" />
+                            <circle cx="160" cy="107" r="6" fill="#c2a14d" />
+                            <path d="M160 36 L160 107" stroke="#eadfc8" stroke-width="3.5" stroke-linecap="round" />
+                            <path d="M54 166 L160 107" stroke="#c2a14d" stroke-width="3.5" stroke-linecap="round" />
+                            <path d="M266 166 L160 107" stroke="#c2a14d" stroke-width="3.5" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="hero-scheme-copy">
+                        <p class="section-label">Чева</p>
+                        <h3>Пересечение cevian</h3>
+                        <p class="hero-scheme-equation">BD / DC · CE / EA · AF / FB = 1</p>
+                    </div>
+                </article>
+
+                <article class="card hero-scheme-card hero-scheme-card-thales">
+                    <div class="hero-scheme-figure" aria-hidden="true">
+                        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M56 162 L56 28" stroke="rgba(234,223,200,0.8)" stroke-width="3.5" stroke-linecap="round" />
+                            <path d="M56 162 L270 162" stroke="rgba(234,223,200,0.8)" stroke-width="3.5" stroke-linecap="round" />
+                            <path d="M56 28 L270 162" stroke="#c2a14d" stroke-width="3.5" stroke-linecap="round" />
+                            <path d="M56 92 L206 136" stroke="#eadfc8" stroke-width="2.8" stroke-dasharray="10 7" />
+                            <circle cx="56" cy="162" r="4.5" fill="#eadfc8" />
+                            <circle cx="56" cy="28" r="4.5" fill="#eadfc8" />
+                            <circle cx="270" cy="162" r="4.5" fill="#eadfc8" />
+                        </svg>
+                    </div>
+                    <div class="hero-scheme-copy">
+                        <p class="section-label">Фалес</p>
+                        <h3>Параллели и пропорции</h3>
+                        <p class="hero-scheme-equation">CD / CA = CE / CB = DE / AB</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section home-story-section">
+    <div class="container">
+        <div class="section-head home-clean-head">
+            <div>
+                <p class="section-label">О проекте</p>
+                <h2>Кто делал и зачем появилась эта платформа</h2>
+            </div>
+        </div>
+
+        <div class="home-story-grid">
+            <article class="card home-story-card">
+                <p class="section-label">Кто делал</p>
+                <h3>Учебная full-stack разработка</h3>
+                <p>Проект выполнен как учебная платформа на Flask, Jinja2 и SQLite для школьной презентации и спокойного повторения классической геометрии.</p>
+            </article>
+
+            <article class="card home-story-card">
+                <p class="section-label">Зачем</p>
+                <h3>Свести теорию и практику в одно место</h3>
+                <p>На сайте теоремы, рисунки, доказательства и задачи собраны в одной логике, чтобы переход от формулы к решению был естественным и быстрым.</p>
+            </article>
+
+            <article class="card home-story-card">
+                <p class="section-label">Подход</p>
+                <h3>Современная подача классического материала</h3>
+                <p>Визуальный стиль опирается на античную геометрию, архитектуру и чертежи, но остаётся аккуратным, современным и удобным для чтения с любого устройства.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section home-capabilities-section">
+    <div class="container">
+        <div class="section-head home-clean-head">
+            <div>
+                <p class="section-label">Платформа</p>
+                <h2>Возможности платформы</h2>
+            </div>
+        </div>
+
+        <div class="home-capabilities-grid">
+            <article class="card home-capability-card">
+                <p class="section-label">Теория</p>
+                <h3>Формулировки и схемы</h3>
+                <p>Каждая тема начинается с понятной идеи, формулы и рисунка, чтобы сразу увидеть геометрию, а не только текст определения.</p>
+            </article>
+
+            <article class="card home-capability-card">
+                <p class="section-label">Доказательство</p>
+                <h3>Пошаговая логика</h3>
+                <p>Доказательства разбиты на короткие, читаемые шаги: легко возвращаться к нужному месту и отслеживать, откуда берётся каждое отношение.</p>
+            </article>
+
+            <article class="card home-capability-card">
+                <p class="section-label">Практика</p>
+                <h3>Задачи с прогрессом</h3>
+                <p>Каталог задач использует прогресс по сессии: можно решать, проверять ответ, открывать решение и видеть, какие задачи уже закрыты.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="home-theorems">
+    <div class="container">
+        <div class="section-head home-clean-head">
+            <div>
+                <p class="section-label">Теоремы</p>
+                <h2>Три ключевых блока классической геометрии</h2>
+            </div>
+        </div>
+
+        <div class="home-theorem-list home-theorem-list-rich">
+            <a href="{{ url_for('theorem_page', theorem_type='thales') }}" class="card home-theorem-link home-theorem-rich-card">
+                <div class="home-theorem-link-top">
+                    <span class="home-theorem-link-index">I</span>
+                    <span class="home-theorem-link-chip">Параллельность</span>
+                </div>
+                <h3>Теорема Фалеса</h3>
+                <p>Работает там, где нужно быстро перейти от параллельных прямых к отношениям отрезков и подобию фигур.</p>
+            </a>
+
+            <a href="{{ url_for('theorem_page', theorem_type='menelaus') }}" class="card home-theorem-link home-theorem-rich-card">
+                <div class="home-theorem-link-top">
+                    <span class="home-theorem-link-index">II</span>
+                    <span class="home-theorem-link-chip">Коллинеарность</span>
+                </div>
+                <h3>Теорема Менелая</h3>
+                <p>Даёт строгий и компактный способ проверить, лежат ли точки на одной прямой внутри треугольной конфигурации.</p>
+            </a>
+
+            <a href="{{ url_for('theorem_page', theorem_type='ceva') }}" class="card home-theorem-link home-theorem-rich-card">
+                <div class="home-theorem-link-top">
+                    <span class="home-theorem-link-index">III</span>
+                    <span class="home-theorem-link-chip">Конкурентность</span>
+                </div>
+                <h3>Теорема Чевы</h3>
+                <p>Помогает понимать, когда несколько прямых в треугольнике действительно пересекаются в одной внутренней точке.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section home-practice-section">
+    <div class="container">
+        <div class="card home-minimal-cta home-practice-cta">
+            <div>
+                <p class="section-label">Практика</p>
+                <h2>Каталог задач помогает закрепить теорию на конфигурациях, где важен каждый отрезок</h2>
+                <p class="text-muted">После изучения теоремы лучше сразу переходить к задачам: так формулы быстрее превращаются в уверенный навык решения.</p>
+            </div>
+
+            <div class="home-minimal-actions">
+                <a href="{{ url_for('tasks_list') }}" class="btn btn-primary btn-lg">Каталог задач</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

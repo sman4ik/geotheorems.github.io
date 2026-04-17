@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Задачи — GEOMETRIA{% endblock %}
+
+{% block content %}
+<section class="section tasks-section">
+    <div class="container">
+        <div class="text-center tasks-page-header">
+            <h1>Каталог задач</h1>
+            <p class="text-muted">
+                Решайте задачи по теоремам Фалеса, Менелая и Чевы
+            </p>
+        </div>
+
+        <div class="card tasks-filter-card">
+            <form id="tasks-filter-form">
+                <div class="filters-content">
+                    <div class="tasks-filters">
+                        <div class="filter-group">
+                            <label for="theorem">Теорема:</label>
+                            <select name="theorem" id="theorem" class="filter-select">
+                                <option value="all">Все</option>
+                                <option value="thales">Фалеса</option>
+                                <option value="menelaus">Менелая</option>
+                                <option value="ceva">Чевы</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="difficulty">Сложность:</label>
+                            <select name="difficulty" id="difficulty" class="filter-select">
+                                <option value="all">Все</option>
+                                <option value="easy">Лёгкая</option>
+                                <option value="medium">Средняя</option>
+                                <option value="hard">Сложная</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="solution_type">Тип задач:</label>
+                            <select name="solution_type" id="solution_type" class="filter-select">
+                                <option value="all">Все</option>
+                                <option value="solution">Решение</option>
+                                <option value="proof">Доказательство</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="sort">Сортировка:</label>
+                            <select name="sort" id="sort" class="filter-select">
+                                <option value="created_at">По дате загрузки</option>
+                                <option value="difficulty">По сложности</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="tasks-content">
+            <div id="tasks-loading" class="text-center" style="display: none; padding: 3rem;">
+                <p class="text-muted">Загрузка задач...</p>
+            </div>
+
+            <div id="tasks-grid">
+                <!-- Tasks will be loaded here dynamically -->
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/tasks.js') }}"></script>
+{% endblock %}

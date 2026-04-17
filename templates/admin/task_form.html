@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% block title %}{% if task %}Редактировать{% else %}Добавить{% endif %} задачу — GEOMETRIA{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        {% if error %}
+        <div class="card" style="background: rgba(139, 69, 69, 0.15); border-color: var(--error); margin-bottom: var(--spacing-lg);">
+            <p style="color: var(--error); font-weight: 500;">⚠️ {{ error }}</p>
+        </div>
+        {% endif %}
+        
+        <div class="admin-header">
+            <h1>{% if task %}Редактировать задачу{% else %}Добавить задачу{% endif %}</h1>
+            <a href="{{ url_for('add_task') }}" class="btn btn-secondary">← Назад</a>
+        </div>
+
+        <form method="POST" class="card" style="max-width: 800px;" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Название задачи *</label>
+                <input type="text" id="title" name="title" class="form-control" value="{{ task.title if task else '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="theorem_type">Теорема *</label>
+                <select id="theorem_type" name="theorem_type" class="form-control" 
+                    <option value="">Выберите...</option>
+                    <option value="thales" {% if task and task.theorem_type == 'thales' %}selected{% endif %}>Фалеса</option>
+                    <option value="menelaus" {% if task and task.theorem_type == 'menelaus' %}selected{% endif %}>Менелая</option>
+                    <option value="ceva" {% if task and task.theorem_type == 'ceva' %}selected{% endif %}>Чевы</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Условие задачи *</label>
+                <textarea id="description" name="description" class="form-control" rows="4" required>{{ task.description if task else '' }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="difficulty">Сложность *</label>
+                <select id="difficulty" name="difficulty" class="form-control" required>
+                    <option value="">Выберите...</option>
+                    <option value="easy" {% if task and task.difficulty == 'easy' %}selected{% endif %}>Лёгкая</option>
+                    <option value="medium" {% if task and task.difficulty == 'medium' %}selected{% endif %}>Средняя</option>
+                    <option value="hard" {% if task and task.difficulty == 'hard' %}selected{% endif %}>Сложная</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="solution_type">Тип задачи *</label>
+                <select id="solution_type" name="solution_type" class="form-control" required>
+                    <option value="solution" {% if not task or task.solution_type == 'solution' %}selected{% endif %}>Решение</option>
+                    <option value="proof" {% if task and task.solution_type == 'proof' %}selected{% endif %}>Доказательство</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Подсказки</label>
+                <div id="hints-container" style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+                    {% set task_hints = task.hints|from_json %}
+                    {% if task_hints %}
+                        {% for hint in task_hints %}
+                        <div class="hint-input-row" style="display: flex; gap: var(--spacing-sm); align-items: center;">
+                            <textarea class="form-control hint-input" rows="2" placeholder="Текст подсказки">{{ hint }}</textarea>
+                            <button type="button" class="btn btn-sm btn-ghost btn-delete" onclick="removeHint(this)" title="Удалить подсказку">−</button>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="hint-input-row" style="display: flex; gap: var(--spacing-sm); align-items: center;">
+                            <textarea class="form-control hint-input" rows="2" placeholder="Текст подсказки"></textarea>
+                            <button type="button" class="btn btn-sm btn-ghost btn-delete" onclick="removeHint(this)" title="Удалить подсказку">−</button>
+                        </div>
+                    {% endif %}
+                </div>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="addHint()" style="margin-top: var(--spacing-sm);">
+                    + Добавить подсказку
+                </button>
+                <input type="hidden" name="hints" id="hints-hidden" value="">
+            </div>
+
+            <div class="form-group">
+                <label for="solution">Решение/Доказательство *</label>
+                <textarea id="solution" name="solution" class="form-control" rows="6" required>{{ task.solution if task else '' }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image_path">Изображение задачи (диаграмма/схема)</label>
+                <div class="image-upload-section">
+                    <div class="upload-area" id="upload-area">
+                        <p class="upload-text">📷 Перетащите изображение сюда или кликните для выбора</p>
+                        <p class="upload-hint">PNG, JPG, SVG (макс. 5 МБ)</p>
+                        <input type="file" id="image-file" name="image-file" accept="image/*" style="display: none;">
+                    </div>
+                    <div id="image-preview" class="image-preview" style="display: none;">
+                        <img id="preview-img" src="" alt="Предпросмотр">
+                        <button type="button" class="btn btn-sm btn-ghost btn-delete" onclick="removeImage()">✕ Удалить</button>
+                    </div>
+                    <input type="hidden" id="image_path" name="image_path" value="{{ task.image_path if task else '' }}">
+                    {% if task and task.image_path %}
+                    <p class="text-muted" style="font-size: 0.8rem; margin-top: var(--spacing-xs);">
+                        Текущее изображение: {{ task.image_path }}
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div style="display: flex; gap: var(--spacing-md); margin-top: var(--spacing-xl);">
+                <button type="submit" class="btn btn-primary">{% if task %}Сохранить{% else %}Создать{% endif %}</button>
+                <a href="{{ url_for('add_task') }}" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function addHint() {
+    const container = document.getElementById('hints-container');
+    const row = document.createElement('div');
+    row.className = 'hint-input-row';
+    row.style.cssText = 'display: flex; gap: var(--spacing-sm); align-items: center;';
+    row.innerHTML = `
+        <textarea class="form-control hint-input" rows="2" placeholder="Текст подсказки"></textarea>
+        <button type="button" class="btn btn-sm btn-ghost btn-delete" onclick="removeHint(this)" title="Удалить подсказку">−</button>
+    `;
+    container.appendChild(row);
+}
+
+function removeHint(button) {
+    const container = document.getElementById('hints-container');
+    const rows = container.querySelectorAll('.hint-input-row');
+    if (rows.length > 1) {
+        button.parentElement.remove();
+    } else {
+        const textarea = button.parentElement.querySelector('textarea');
+        if (textarea) textarea.value = '';
+    }
+}
+
+function removeImage() {
+    document.getElementById('upload-area').style.display = 'block';
+    document.getElementById('image-preview').style.display = 'none';
+    document.getElementById('image_path').value = '';
+    document.getElementById('image-file').value = '';
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const hintsHidden = document.getElementById('hints-hidden');
+    
+    // Image upload handling
+    const uploadArea = document.getElementById('upload-area');
+    const imageFileInput = document.getElementById('image-file');
+    const imagePreview = document.getElementById('image-preview');
+    const previewImg = document.getElementById('preview-img');
+    const imagePathHidden = document.getElementById('image_path');
+
+    if (uploadArea && imageFileInput) {
+        uploadArea.addEventListener('click', function() {
+            imageFileInput.click();
+        });
+
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--accent-primary)';
+            uploadArea.style.background = 'rgba(194, 161, 77, 0.1)';
+        });
+
+        uploadArea.addEventListener('dragleave', function() {
+            uploadArea.style.borderColor = '';
+            uploadArea.style.background = '';
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadArea.style.borderColor = '';
+            uploadArea.style.background = '';
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleImageFile(files[0]);
+            }
+        });
+
+        imageFileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                handleImageFile(this.files[0]);
+            }
+        });
+
+        function handleImageFile(file) {
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                alert('Пожалуйста, выберите изображение');
+                return;
+            }
+            
+            // Validate file size (5 MB max)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Файл слишком большой. Максимум 5 МБ');
+                return;
+            }
+
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                uploadArea.style.display = 'none';
+                imagePreview.style.display = 'flex';
+                
+                // Generate filename with timestamp
+                const timestamp = Date.now();
+                const ext = file.name.split('.').pop();
+                const newFilename = 'task_' + timestamp + '.' + ext;
+                imagePathHidden.value = newFilename;
+                
+                // Store the actual file for upload
+                window.imageFileToUpload = {
+                    file: file,
+                    filename: newFilename
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+
+});
+</script>
+{% endblock %}
